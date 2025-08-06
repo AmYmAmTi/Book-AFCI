@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>All Books list</title>
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<h1>📅 Books list :</h1>
+
+	<a th:href="@{/books/add}">
+		<button type="button">➕ Add Book</button>
+	</a>
+
+	<table border="1">
+		<thead>
+
+			<tr>
+				<th>ID</th>
+				<th>Title</th>
+				<th colspan="3">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="book : ${messenger}">
+				<td th:text="${book.id}"></td>
+				<td th:text="${book.title}"></td>
+
+				<!-- عدل الاسم حسب كلاس Book -->
+
+				<td><a th:href="@{/books/{id}(id=${book.id})}">📅</a></td>
+				<td><a th:href="@{/books/edit/{id}(id=${book.id})}">✏️</a></td>
+				<td><a th:href="@{/books/delete/{id}(id=${book.id})}">🗑️</a></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

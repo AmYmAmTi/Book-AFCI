@@ -9,7 +9,8 @@
 	<h1>📅 Books list :</h1>
 
 	<a th:href="@{/books/add}">
-		<button type="button">➕ Add Book</button>
+		
+	<input type="submit" value="➕ Add Book">
 	</a>
 
 	<table border="1">
@@ -26,11 +27,15 @@
 				<td th:text="${book.id}"></td>
 				<td th:text="${book.title}"></td>
 
-				<!-- عدل الاسم حسب كلاس Book -->
-
+				
+				<!-- Lien pour afficher les détails du livre -->
 				<td><a th:href="@{/books/{id}(id=${book.id})}">📅</a></td>
+				
+				<!-- Lien pour modifier le livre -->
 				<td><a th:href="@{/books/edit/{id}(id=${book.id})}">✏️</a></td>
-				<td><a th:href="@{/books/delete/{id}(id=${book.id})}">🗑️</a></td>
+				
+				<!-- Lien pour supprimer le livre -->
+				<td><a th:href="@{/books/delete/{id}(id=${book.id})}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce livre ?');">🗑️</a></td>
 			</tr>
 		</tbody>
 	</table>

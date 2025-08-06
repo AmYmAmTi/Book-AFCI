@@ -47,7 +47,34 @@ public class BookService {
 
 	public void addBook(Book b) {
 		bookRepository.save(b);
+
+	}
+
+	public void deleteBook(Long id) {
+		bookRepository.deleteById(id);
+
+	}
+
+	public Book findBookById(Long id) {
+		// récup du book dont l'id est dans le parm
+		Optional<Book> book = bookRepository.findById(id);
 		
+		Book bookFind =book.orElse(new Book("livre non trouvé", 0));
+		
+		return bookFind;
+	}
+	
+	
+	public void editBook(Long id) {
+		
+		// ctrl + shift + : ou /
+
+		
+
+		
+		
+	//	bookRepository.save(bookFind);
+
 	}
 
 }

@@ -73,7 +73,7 @@ public class BookController {
     public String editBook(@PathVariable long id, Model model) {
         Book book = bookService.findBookById(id);
         model.addAttribute("bookToUpdate", book);
-        return "editForm"; // View: editForm.html
+        return "bookEdit"; // View: bookEdit.html
     }
 
     // ============================

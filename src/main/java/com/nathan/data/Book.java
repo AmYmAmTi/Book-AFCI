@@ -5,106 +5,113 @@ import java.io.Serializable;
 import jakarta.persistence.*;
 
 /**
- * Entity class representing a Book.
- * This class is mapped to a table in the database using JPA annotations.
+ * Entity class representing a Book. This class is mapped to a table in the
+ * database using JPA annotations.
  */
 @Entity
 public class Book implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    // ================================
-    // Fields / Properties
-    // ================================
+	// ================================
+	// Fields / Properties
+	// ================================
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
 
-    @Column(name = "title", nullable = false, length = 100)
-    private String title;
+	@Column(name = "title", nullable = false, length = 100)
+	private String title;
 
-    @Column(name = "nbPage", nullable = false)
-    private int nbPage;
+	@Column(name = "nbPage", nullable = false)
+	private int nbPage;
 
-    
-    // ================================
-    // Relationships
-    // ================================
-    @ManyToOne
-    @JoinColumn(name = "id_editor") // la cle étrangère
-    
-    private Editor editor;
-    
-    
-    // ================================
-    // Constructors
-    // ================================
+	// ================================
+	// Relationships
+	// ================================
+	@ManyToOne
+	@JoinColumn(name = "id_editor") // la cle étrangère
 
-    // Default constructor (required by JPA)
-    public Book() {
-        // no-args constructor
-    }
+	private Editor editor;
 
-    // Full constructor
-    public Book(String title, int nbPage) {
-        this.title = title;
-        this.nbPage = nbPage;
-    }
+	// ================================
+	// Constructors
+	// ================================
 
-    // Partial constructor (used for fallback or simplified creation)
-    public Book(String title) {
-        this.title = title;
-        this.nbPage = 0; // default value
-    }
+	// Default constructor (required by JPA)
+	public Book() {
+		// no-args constructor
+	}
 
-    // ================================
-    // Getters
-    // ================================
+	// Full constructor
+	public Book(String title, int nbPage) {
+		this.title = title;
+		this.nbPage = nbPage;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	// Partial constructor (used for fallback or simplified creation)
+	public Book(String title) {
+		this.title = title;
+		this.nbPage = 0; // default value
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	// ================================
+	// Getters
+	// ================================
 
-    public int getNbPage() {
-        return nbPage;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    // ================================
-    // Setters
-    // ================================
+	public String getTitle() {
+		return title;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public int getNbPage() {
+		return nbPage;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public Editor getEditor() {
+		return editor;
+	}
 
-    public void setNbPage(int nbPage) {
-        this.nbPage = nbPage;
-    }
+	
+	
+	// ================================
+	// Setters
+	// ================================
 
-    // ================================
-    // toString()
-    // ================================
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    @Override
-    public String toString() {
-        return "Book [id=" + id + ", title=" + title + ", nbPage=" + nbPage + "]";
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    /*
-     * 🔔 Notes:
-     * - `Serializable` is implemented for best practice in JavaBeans used in persistence.
-     * - `@Entity` marks this as a JPA-managed entity.
-     * - All fields are private and accessed via getters/setters.
-     * - You can extend this class in the future to add author, category, price, etc.
-     */
+	public void setNbPage(int nbPage) {
+		this.nbPage = nbPage;
+	}
+
+	public void setEditor(Editor editor) {
+		this.editor = editor;
+	}
+
+	// ================================
+	// toString()
+	// ================================
+
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", title=" + title + ", nbPage=" + nbPage + "]";
+	}
+
+	/*
+	 * 🔔 Notes: - `Serializable` is implemented for best practice in JavaBeans used
+	 * in persistence. - `@Entity` marks this as a JPA-managed entity. - All fields
+	 * are private and accessed via getters/setters. - You can extend this class in
+	 * the future to add author, category, price, etc.
+	 */
 }

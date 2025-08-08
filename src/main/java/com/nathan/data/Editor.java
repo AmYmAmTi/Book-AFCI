@@ -10,51 +10,44 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
- 
 @Entity
-public class Editor  {
-	
+public class Editor {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
 	@Column(name = "id_editor")
 	private long id;
+
 	
-	@Column(name="name_editor",nullable = false,length = 100)
-	private String nameEditor;
-	
-	@Column(name="adress_editor",nullable = false, length = 300)
+    @Column(name = "name_editor", nullable = false, length = 100)
+    private String nameEditor;
+
+	@Column(name = "adress_editor", nullable = false, length = 300)
 	private String addressEditor;
 
 	// ================================
 	// Relationships
 	// ================================
-	
+
 	// One Editor can have many Books
-	@OneToMany(mappedBy = "editor",cascade = CascadeType.ALL)
-	
-	
-	
-	
+	@OneToMany(mappedBy = "editor", cascade = CascadeType.ALL)
+
 	private List<Book> books;
-	
-	
+
 	// ================================
-    // Constructors
-    // ================================
-	
+	// Constructors
+	// ================================
+
 	public Editor() {
 		super();
 	}
-
 
 	public Editor(String nameEditor, String addressEditor) {
 		super();
 		this.nameEditor = nameEditor;
 		this.addressEditor = addressEditor;
 	}
-	
-	
+
 	public Editor(String nameEditor) {
 		super();
 		this.nameEditor = nameEditor;
@@ -62,60 +55,43 @@ public class Editor  {
 	}
 
 	// ================================
-    // Getters
-    // ================================
-	
+	// Getters
+	// ================================
+
 	public long getId() {
 		return id;
 	}
-
 
 	public String getNameEditor() {
 		return nameEditor;
 	}
 
-
 	public String getAddressEditor() {
 		return addressEditor;
 	}
 
-
 	// ================================
-    // Setters
-    // ================================
-	
+	// Setters
+	// ================================
+
 	public void setId(long id) {
 		this.id = id;
 	}
-
 
 	public void setNameEditor(String nameEditor) {
 		this.nameEditor = nameEditor;
 	}
 
-
 	public void setAddressEditor(String addressEditor) {
 		this.addressEditor = addressEditor;
 	}
 
-
-	
 	// ================================
-    // toString()
-    // ================================
+	// toString()
+	// ================================
 	@Override
 	public String toString() {
 		return "Editor [id=" + id + ", nameEditor=" + nameEditor + ", addressEditor=" + addressEditor + "]";
 	}
-	
-	
 
-   
-	
-	
-	
-	
-	
-	
-	
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Add Book</title>
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<h2>➕📚 Add Book:</h2>
+
+	<div>
+		<form th:action="@{/books}" th:object="${book}" method="post">
+			<label for="title">Book Title:</label><br> <input type="text"
+				id="title" th:field="*{title}" required><br>
+			<br> <label for="nbPage">Number of Pages:</label><br> <input
+				type="number" id="nbPage" th:field="*{nbPage}" min="1" required><br>
+			<br> <label for="editor">Book Editor:</label><br> 
+			<select th:field="*{editor}">
+				<option th:each="editor : ${editors}" th:value="${editor.id}"
+					th:text="${editor.name}"></option>
+			</select> <br>
+			<br> <input type="submit" value="Submit">
+		</form>
+	</div>
+
+	<p>
+		If you click the "Submit" button, the form-data will be sent to the
+		<code>@PostMapping("/books")</code>
+		in your
+		<code>BookController</code>
+		.
+	</p>
+</body>
+</html>

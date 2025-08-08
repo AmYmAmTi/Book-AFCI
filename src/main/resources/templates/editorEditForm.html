@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Edit Editor</title>
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+
+
+	<h2>✏️👨‍💼 Edit Editor:</h2>
+<div>
+	<form th:action="@{/editors}" th:object="${editorToUpdate}" method="post">
+		<label for="fname">Editor :</label><br> <input type="text"
+			th:field="*{title}"><br> <label for="" id="fname">Adress
+			:</label><br> <input type="text" th:field="*{adress}" /><br>
+		<br> <input type="submit" value="Submit">
+	</form>
+</div>
+	<p>If you click the "Submit" button, the form-data will be sent to
+		a page called "@GetMapping("/edit") in EditorController".</p>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

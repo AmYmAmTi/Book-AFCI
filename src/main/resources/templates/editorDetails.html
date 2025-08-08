@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Editor Details</title>
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<h1>👨‍💼 Editor Details</h1>
+
+
+	<ul th:each="book : ${messenger}">
+		<li>id :<span th:text="${editor.id}"></span></li>
+		<li>Title :<span th:text="${editor.title}"></span></li>
+		<li>No.Pages :<span th:text="${editor.nbPage}"></span></li>
+	</ul>
+	
+</body>
+</html>

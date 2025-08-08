@@ -28,6 +28,16 @@ public class Book implements Serializable {
     @Column(name = "nbPage", nullable = false)
     private int nbPage;
 
+    
+    // ================================
+    // Relationships
+    // ================================
+    @ManyToOne
+    @JoinColumn(name = "id_editor") // la cle étrangère
+    
+    private Editor editor;
+    
+    
     // ================================
     // Constructors
     // ================================

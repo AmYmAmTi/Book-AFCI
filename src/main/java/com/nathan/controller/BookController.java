@@ -18,14 +18,14 @@ public class BookController {
     // Dependencies
     // ============================
     private final BookService bookService;
-    private final BookControllerApi bookControllerApi;
-    private final BookRepository bookRepository;
+    //private final BookControllerApi bookControllerApi;
+    //private final BookRepository bookRepository;
 
     // Constructor Injection
     public BookController(BookService bookService, BookControllerApi bookControllerApi, BookRepository bookRepository) {
         this.bookService = bookService;
-        this.bookControllerApi = bookControllerApi;
-        this.bookRepository = bookRepository;
+     //   this.bookControllerApi = bookControllerApi;
+     //   this.bookRepository = bookRepository;
     }
 
     // ============================
@@ -54,7 +54,7 @@ public class BookController {
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("book", new Book());
-        return "bookAdd"; // View: bookAdd.html
+        return "bookAddForm"; // View: bookAdd.html
     }
 
     // ============================
@@ -73,7 +73,7 @@ public class BookController {
     public String editBook(@PathVariable long id, Model model) {
         Book book = bookService.findBookById(id);
         model.addAttribute("bookToUpdate", book);
-        return "bookEdit"; // View: bookEdit.html
+        return "bookEditForm"; // View: bookEdit.html
     }
 
     // ============================
@@ -84,7 +84,7 @@ public class BookController {
         bookService.updateBook(book);
         return "redirect:/books";
     }
-
+        
     // ============================
     // 7. Delete Book
     // ============================

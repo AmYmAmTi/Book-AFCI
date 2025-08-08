@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8">
+      <title>Edit Book</title>
+      <link rel="stylesheet" th:href="@{/css/style.css}" />
+   </head>
+   <body>
+      <h2>✏️📚 Edit Book:</h2>
+      <div>
+         <form th:action="@{/books}" th:object="${bookToUpdate}" method="post">
+            <label for="fname">Title:</label><br> <input type="text"
+               th:field="*{title}"><br> <label for="" id="fname">Number
+            of Pages:</label><br> <input type="number" th:field="*{nbPage}" /><br>
+            <br> <input type="submit" value="Submit">
+         </form>
+      </div>
+      <p>If you click the "Submit" button, the form-data will be sent to
+         a page called "@GetMapping("/edit") in BookController".
+      </p>
+
+
+
+
+
+
+</body>
+</html>

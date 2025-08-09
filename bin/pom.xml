@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.nathan</groupId>
-	<artifactId>book-webapp_cda</artifactId>
+	<artifactId>book-webapp_cda2026</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>book-webapp_cda</name>
-	<description>project for Spring Boot</description>
+	<name>book-webapp_cda2026</name>
+	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
 		<license/>

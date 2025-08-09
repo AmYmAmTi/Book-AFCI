@@ -7,20 +7,34 @@
 </head>
 <body>
 	<h2>✏️📚 Edit Book:</h2>
+	
 	<div>
-		<form th:action="@{/books}" th:object="${bookToUpdate}" method="post">
-			<label for="fname">Title:</label><br> <input type="text"
-				th:field="*{title}"><br> <label for="" id="fname">Number
-				of Pages:</label><br> <input type="number" th:field="*{nbPage}" /><br>
-			<br> <input type="submit" value="Submit">
-		</form>
+	<form th:action="@{/books/update}" th:object="${bookToUpdate}" method="post">
+
+      <input type="hidden" th:field="*{id}" />
+     <label for="title">Title:</label><br>
+     <input type="text" th:field="*{title}" /><br>
+	 <label for="nbPages">Number of Pages:</label><br>
+     <input type="number" th:field="*{nbPage}" /><br>
+     <label for="editor">Author:</label><br>
+        <div>   
+      <select th:field="*{author}" >
+         <option value="" disabled selected>Select an author</option>
+         <option th:each="author : ${authors}" 
+                        th:value="${author.id}" 
+                        th:text="${author.fullName}">
+          </option>
+      </select><br><br>
+    </div>
+   
+     <div>
+           <button type="submit" class="btn">Update</button>
+            <a th:href="@{/books}" class="btn">Back</a>
+        </div>
+</form>
+
 	</div>
-	<p>If you click the "Submit" button, the form-data will be sent to
-		a page called "@GetMapping("/edit") in BookController".</p>
-
-
-
-
+	
 
 
 </body>

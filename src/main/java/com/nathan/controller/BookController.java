@@ -1,88 +1,100 @@
 package com.nathan.controller;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.nathan.data.AuthorRepository;
 import com.nathan.data.Book;
-import com.nathan.data.BookRepository;
-import com.nathan.data.EditorRepository;
 import com.nathan.service.BookService;
 
 @Controller
 @RequestMapping("/books")
 public class BookController {
 
-    // ============================
-    // Dependencies
-    // ============================
-    private final BookService bookService;
-    private final EditorRepository editorRepository;
-    //private final BookControllerApi bookControllerApi;
-    //private final BookRepository bookRepository;
+	private final BookService bookService;
+	private final AuthorRepository euthorRepository;
+	// Constructor injection
 
-    // Constructor Injection
-    
-
-    // ============================
-    // 1. List All Books
-    // ============================
-    @GetMapping
-    public String getAllBooks(Model model) {
-        List<Book> books = bookService.getAllBooks();
-        model.addAttribute("messenger", books);
-        return "books"; // View: books.html
-    }
-
-    public BookController(BookService bookService, EditorRepository editorRepository) {
+	public BookController(BookService bookService, AuthorRepository euthorRepository) {
 		super();
 		this.bookService = bookService;
-		this.editorRepository = editorRepository;
+		this.euthorRepository = euthorRepository;
+	}
+
+	// ========================================
+	// 1. List All Books
+	// ========================================
+	@GetMapping
+	public String listBooks(Model model) {
+		model.addAttribute("books", bookService.getAllBooks());
+		return "bookList";
+	}
+
+	// ========================================
+	// 2. View Book Details
+	// ========================================
+	@GetMapping("/{id}")
+	public String bookDetails(@PathVariable Long id, Model model) {
+		Optional<Book> bookOpt = bookService.findById(id);
+		if (bookOpt.isPresent()) {
+			model.addAttribute("book", bookOpt.get());
+			return "bookDetails";
+		} else {
+			return "redirect:/books"; // أو صفحة خطأ
+		}
 	}
 
 	// ============================
-    // 2. View Book Details
-    // ============================
-    @GetMapping("/{id}")
-    public String getBookDetails(@PathVariable long id, Model model) {
-        Book book = bookService.getBookById(id);
-        model.addAttribute("messenger", book);
-        return "bookDetails"; // View: bookDetails.html
-    }
+	// 3. Show Form to Add Book
+	// ============================
+	@GetMapping("/add")
+	public String showAddForm(Model model) {
+		model.addAttribute("book", new Book());
+		model.addAttribute("authors", euthorRepository.findAll());
+		System.out.println(new Book().getAuthor()); // Should not throw an error
+		return "bookAdd";
+	}
 
-    // ============================
-    // 3. Show Form to Add Book
-    // ============================
-    @GetMapping("/add")
-    public String showAddForm(Model model) {
-        model.addAttribute("book", new Book());
-        model.addAttribute("editors", editorRepository.findAll());
-        System.out.println(new Book().getEditor()); // Should not throw an error
+	// ============================
+	// 4. Save New Book
+	// ============================
 
-        return "bookAddForm"; // View: bookAdd.html
-    }
+	@PostMapping("/add")
+	public String addBook(@ModelAttribute("book") Book book, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			model.addAttribute("authors", euthorRepository.findAll());
+			return "bookAdd";
+		}
+		bookService.addBook(book);
+		return "redirect:/books";
+	}
 
-    // ============================
-    // 4. Process Add Book Form
-    // ============================
-    @PostMapping
-    public String addBook(@ModelAttribute Book book) {
-        bookService.addBook(book);
-        return "redirect:/books";
-    }
-
+	
     // ============================
     // 5. Show Form to Edit Book
     // ============================
-    @GetMapping("/edit/{id}")
-    public String editBook(@PathVariable long id, Model model) {
-        Book book = bookService.findBookById(id);
-        model.addAttribute("bookToUpdate", book);
-        return "bookEditForm"; // View: bookEdit.html
-    }
+	@GetMapping("/edit/{id}")
+	public String editBook(@PathVariable long id, Model model) {
+	    Book book = bookService.findById(id)
+	                           .orElseThrow(() -> new IllegalArgumentException("Invalid book ID: " + id));
+	    
+	    model.addAttribute("bookToUpdate", book);
+	    model.addAttribute("authors", euthorRepository.findAll());
+	    
+	  //  System.out.println("Authors count: " + authors.size());
 
+	    return "bookEdit"; // View: bookEdit.html
+	}
+
+		
     // ============================
     // 6. Process Edit Book Form
     // ============================
@@ -91,21 +103,22 @@ public class BookController {
         bookService.updateBook(book);
         return "redirect:/books";
     }
-        
-    // ============================
-    // 7. Delete Book
-    // ============================
-    @GetMapping("/delete/{id}")
-    public String deleteBook(@PathVariable Long id) {
-        bookService.removeBooks(id);
-        return "redirect:/books";
-    }
+	
+	
+	// ============================
+	// 7. Delete Book
+	// ============================
+	@GetMapping("/delete/{id}")
+	public String deleteBook(@PathVariable Long id) {
+		bookService.removeBooks(id);
+		return "redirect:/books";
+	}
 
-    /*
-     * 🔔 Notes:
-     * - The controller is structured by action type (List, Details, Add, Edit, Delete).
-     * - View names must match HTML templates inside `src/main/resources/templates/`.
-     * - `th:object` in forms must match the model attribute names: "book" or "bookToUpdate".
-     * - Using GET for deletion simplifies links in HTML, but for real REST APIs use DELETE.
-     */
+	/*
+	 * 🔔 Notes: - The controller is structured by action type (List, Details, Add,
+	 * Edit, Delete). - View names must match HTML templates inside
+	 * `src/main/resources/templates/`. - `th:object` in forms must match the model
+	 * attribute names: "book" or "bookToUpdate". - Using GET for deletion
+	 * simplifies links in HTML, but for real REST APIs use DELETE.
+	 */
 }

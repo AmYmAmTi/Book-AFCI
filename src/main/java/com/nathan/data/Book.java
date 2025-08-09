@@ -32,9 +32,8 @@ public class Book implements Serializable {
 	// Relationships
 	// ================================
 	@ManyToOne
-	@JoinColumn(name = "id_editor") // la cle étrangère
-
-	private Editor editor;
+	@JoinColumn(name = "author_id") // Foreign key column in the Book table
+	private Author author;
 
 	// ================================
 	// Constructors
@@ -73,8 +72,8 @@ public class Book implements Serializable {
 		return nbPage;
 	}
 
-	public Editor getEditor() {
-		return editor;
+	public Author getAuthor() {
+		return author;
 	}
 
 	
@@ -95,8 +94,8 @@ public class Book implements Serializable {
 		this.nbPage = nbPage;
 	}
 
-	public void setEditor(Editor editor) {
-		this.editor = editor;
+	public void setAuthor(Author author) {
+		this.author = author;
 	}
 
 	// ================================
@@ -105,8 +104,9 @@ public class Book implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", nbPage=" + nbPage + "]";
-	}
+        return "Book [id=" + id + ", title=" + title + ", nbPage=" + nbPage +
+               ", author=" + (author != null ? author.getFullName() : "No Author") + "]";
+    }
 
 	/*
 	 * 🔔 Notes: - `Serializable` is implemented for best practice in JavaBeans used

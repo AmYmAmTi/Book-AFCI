@@ -13,11 +13,11 @@ import com.nathan.data.BookRepository;
 public class BookService {
 
     // ================================
-    // Dependencies
+    // Dependency Injection
     // ================================
     private final BookRepository bookRepository;
 
-    // Constructor Injection
+    // Constructor-based injection (recommended for immutability)
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
@@ -27,17 +27,23 @@ public class BookService {
     // ================================
     public List<Book> getAllBooks() {
         List<Book> books = new ArrayList<>();
-        Iterable<Book> result = bookRepository.findAll();
-        result.forEach(books::add); // Java 8 method reference
+        bookRepository.findAll().forEach(books::add);
         return books;
     }
 
     // ================================
-    // 2. Get Book by ID (returns null if not found)
+    // 2. Get Book by ID (fallback if not found)
+    // Returns a dummy Book object if the ID is invalid
     // ================================
-    public Book getBookById(Long id) {
-        Optional<Book> optional = bookRepository.findById(id);
-        return optional.orElse(null);
+    public Optional<Book> findById(Long id) {
+        return bookRepository.findById(id);
+    }
+    
+    
+    
+    // Alias method for compatibility
+    public Book getBook(long id) {
+        return getBook(id);
     }
 
     // ================================
@@ -48,40 +54,23 @@ public class BookService {
     }
 
     // ================================
-    // 4. Delete Book by ID
-    // ================================
-    public void removeBooks(Long id) {
-        bookRepository.deleteById(id);
-    }
-
-    // ================================
-    // 5. Find Book for Edit (fallback if not found)
-    // Used when editing to pre-fill the form
-    // ================================
-    public Book findBookById(Long id) {
-        Optional<Book> book = bookRepository.findById(id);
-        return book.orElse(new Book("Book not found", 0));
-    }
-
-    // ================================
-    // 6. Update Book (used for saving edited book)
+    // 4. Update Book
     // ================================
     public void updateBook(Book book) {
         bookRepository.save(book);
     }
 
     // ================================
-    // ❌ UNUSED - Placeholder for future use
+    // 5. Delete Book by ID
     // ================================
-    public void editBook(Long id) {
-        // Method not used - consider removing or implementing
-        // Example: retrieve + update logic could go here
+    public void removeBooks(Long id) {
+        bookRepository.deleteById(id);
     }
 
-    /*
-     * 🔔 Notes:
-     * - The service handles core logic and acts as a bridge between controller and repository.
-     * - `findBookById` provides a fallback book if ID is invalid (for edit form).
-     * - `updateBook` uses `save()` which updates if ID exists, or inserts if not.
-     */
+    // ================================
+    // Notes:
+    // - getBookById ensures no null is returned to avoid template errors.
+    // - updateBook will insert if the book ID does not exist.
+    // - Always use constructor injection for better testability.
+    // ================================
 }

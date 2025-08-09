@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            text-align: center;
+            padding-top: 100px;
+        }
+        .error-container {
+            display: inline-block;
+            padding: 30px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 8px;
+        }
+        h1 {
+            font-size: 48px;
+            color: #e74c3c;
+        }
+        p {
+            font-size: 18px;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <h1>Oops!</h1>
+        <p>Something went wrong.</p>
+        <p th:text="'Status code: ' + ${status}"></p>
+        <p th:text="'Error: ' + ${error}"></p>
+        <p th:text="'Message: ' + ${message}"></p>
+        <p th:text="'Path: ' + ${path}"></p>
+        <br>
+        <a th:href="@{/books}">Go back to homepage</a>
+    </div>
+</body>
+</html>

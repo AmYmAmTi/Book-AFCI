@@ -1,19 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Books Details</title>
-<link rel="stylesheet" th:href="@{/css/style.css}" />
+    <meta charset="UTF-8">
+    <title>Book Details</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
-	<h1>Books Details</h1>
 
+<h1>📖 Book Details</h1>
 
-	<ul th:each="book : ${messenger}">
-		<li>id :<span th:text="${book.id}"></span></li>
-		<li>Title :<span th:text="${book.title}"></span></li>
-		<li>No.Pages :<span th:text="${book.nbPage}"></span></li>
-	</ul>
-	
+<!-- Show details if the book exists -->
+<div th:if="${book.title != 'Book not found'}">
+    <p><strong>ID:</strong> <span th:text="${book.id}"></span></p>
+    <p><strong>Title:</strong> <span th:text="${book.title}"></span></p>
+    <p><strong>Pages:</strong> <span th:text="${book.nbPage}"></span></p>
+       <p><strong>Author:</strong> <span th:text="${book.author. fullName}"></span></p>
+</div>
+
+<!-- Show error if the book is missing -->
+<p th:if="${book.title == 'Book not found'}" style="color:red;">
+    ❌ Book not found.
+</p>
+<a th:href="@{/books}">Go back to List Books</a>
 </body>
 </html>

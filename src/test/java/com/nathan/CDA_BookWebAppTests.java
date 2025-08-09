@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BookWebappCda2026ApplicationTests {
+class CDA_BookWebAppTests {
 
 	@Test
 	void contextLoads() {

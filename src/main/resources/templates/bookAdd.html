@@ -9,19 +9,28 @@
 	<h2>➕📚 Add Book:</h2>
 
 	<div>
-		<form th:action="@{/books}" th:object="${book}" method="post">
-			<label for="title">Book Title:</label><br> <input type="text" id="title" th:field="*{title}" required><br><br>
-			<label for="nbPage">Number of Pages:</label><br> 
+		<form th:action="@{/books/add}" th:object="${book}" method="post">
+			<label for="title">Book Title:</label><br> 
+			<input type="text" id="title" th:field="*{title}" required><br><br>
 			
+			<label for="nbPage">Number of Pages:</label><br> 
 			<input 	type="number" id="nbPage" th:field="*{nbPage}" min="1" required><br><br> 
-			<label for="editor">Book Editor:</label><br> 
-		
-            <select th:field="*{editor.id}">
-              <option th:each="editor : ${editors}" th:value="${editor.id}" th:text="${editor.nameEditor}">Editor Name</option>
+			
+			<div>
+            <label for="author">Author:</label>
+            <select th:field="*{author}" required>
+                <option value="" disabled selected>Select an author</option>
+                <option th:each="author : ${authors}" 
+                        th:value="${author.id}" 
+                        th:text="${author.fullName}">
+                </option>
             </select>
+        </div>
 	
-			 <br><br> 
-			 <input type="submit" value="Submit">
+			 <div>
+           <button type="submit" class="btn">Save</button>
+            <a th:href="@{/books}" class="btn">Back</a>
+        </div>
 		</form>
 	</div>
 	

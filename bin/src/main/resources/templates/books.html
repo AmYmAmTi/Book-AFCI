@@ -8,7 +8,7 @@
    <body>
       <h1>📅 Books list :</h1>
       <a th:href="@{/books/add}">
-      <input type="submit" class="btn" value="➕ Add Book">
+      <input type="submit" value="➕ Add Book">
       </a>
       <table border="1">
          <thead>
@@ -19,7 +19,7 @@
             </tr>
          </thead>
          <tbody>
-            <tr th:each="book :  ${books}">
+            <tr th:each="book : ${messenger}">
                <td th:text="${book.id}"></td>
                <td th:text="${book.title}"></td>
                <!-- Lien pour afficher les détails du livre -->

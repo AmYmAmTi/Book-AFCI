@@ -40,7 +40,7 @@ public class BookControllerApi {
 
 	@GetMapping("/{id}")
 	public Book bookDetails(@PathVariable Long id) {
-		return bookService.getBookById(id);
+		return bookService.getBook(id);
 
 	}
 

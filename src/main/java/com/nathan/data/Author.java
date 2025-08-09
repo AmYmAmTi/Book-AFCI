@@ -11,47 +11,50 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class Editor {
+public class Author {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_editor")
+	 @Column(name = "id")
 	private long id;
 
 	
-    @Column(name = "name_editor", nullable = false, length = 100)
-    private String nameEditor;
+    @Column(name = "fullName", nullable = false, length = 100)
+    private String fullName;
 
-	@Column(name = "adress_editor", nullable = false, length = 300)
-	private String addressEditor;
+	@Column(name = "adress", nullable = false, length = 300)
+	private String address;
 
 	// ================================
 	// Relationships
 	// ================================
 
-	// One Editor can have many Books
-	@OneToMany(mappedBy = "editor", cascade = CascadeType.ALL)
+	// One Author can have many Books
+	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
 
 	private List<Book> books;
+
+
+	
 
 	// ================================
 	// Constructors
 	// ================================
 
-	public Editor() {
+	public Author() {
 		super();
 	}
 
-	public Editor(String nameEditor, String addressEditor) {
+	public Author(String fullName, String address) {
 		super();
-		this.nameEditor = nameEditor;
-		this.addressEditor = addressEditor;
+		this.fullName = fullName;
+		this.address = address;
 	}
 
-	public Editor(String nameEditor) {
+	public Author(String fullName) {
 		super();
-		this.nameEditor = nameEditor;
-		this.addressEditor = null;
+		this.fullName = fullName;
+		this.address = null;
 	}
 
 	// ================================
@@ -62,12 +65,12 @@ public class Editor {
 		return id;
 	}
 
-	public String getNameEditor() {
-		return nameEditor;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public String getAddressEditor() {
-		return addressEditor;
+	public String getAddress() {
+		return address;
 	}
 
 	// ================================
@@ -78,12 +81,12 @@ public class Editor {
 		this.id = id;
 	}
 
-	public void setNameEditor(String nameEditor) {
-		this.nameEditor = nameEditor;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
-	public void setAddressEditor(String addressEditor) {
-		this.addressEditor = addressEditor;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	// ================================
@@ -91,7 +94,7 @@ public class Editor {
 	// ================================
 	@Override
 	public String toString() {
-		return "Editor [id=" + id + ", nameEditor=" + nameEditor + ", addressEditor=" + addressEditor + "]";
+		return "Author [id=" + id + ", fullName=" + fullName + ", address=" + address + "]";
 	}
 
 }

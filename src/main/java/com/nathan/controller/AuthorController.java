@@ -5,71 +5,54 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 @Controller
 
-@RequestMapping("/editors")
-public class EditorController {
-
-   
+@RequestMapping("/authors")
+public class AuthorController {
 
 	// ctrl + space + G -> @GetMapping
-	
+
 	// ============================
-    // 1. List All Editors
-    // ============================
+	// 1. List All Authors
+	// ============================
 	@GetMapping
-	public String getAllEditors() {
-		return "editors";
+	public String getAllAuthors() {
+		return "authorsList";
 	}
-	
+
 	// ============================
-    // 2. View Book Details
-    // ============================
-	
+	// 2. View Book Details
+	// ============================
+
 	@GetMapping("/{id}")
-	public String getEditorById(@PathVariable Long id) {
-	
-		System.out.println("Editor id:"+id);
-		
-		return "editorDetails";
+	public String getAuthorById(@PathVariable Long id) {
+
+		System.out.println("Author id:" + id);
+
+		return "authorDetails";
 	}
-	
+
 	// ============================
-    // 3. Show Form to Add Editor
-    // ============================
-	
+	// 3. Show Form to Add Author
+	// ============================
+
 	@GetMapping("/add")
-	public String getAddForm(@PathVariable Long id) {
-		
-		System.out.println("Editor id:"+id);
-		
-		return"editorAddForm";
+	public String getAdd(@PathVariable Long id) {
+
+		System.out.println("Author id:" + id);
+
+		return "authorAdd";
 	}
-	
-	
-	
-	
-	
-	
-	
+
 	// ============================
-    // 5. Show Form to Edit Editor
-    // ============================
+	// 5. Show Form to Edit Author
+	// ============================
 	@GetMapping("edit/{id}")
 	public String getEdit(@PathVariable Long id) {
-	
-		System.out.println("Editor id:"+id);
-		
-		return "editorEdit";
+
+		System.out.println("Author id:" + id);
+
+		return "authorEdit";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

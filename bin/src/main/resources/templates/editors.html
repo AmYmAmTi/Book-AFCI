@@ -6,28 +6,28 @@
       <link rel="stylesheet" th:href="@{/css/style.css}" />
    </head>
    <body>
-      <h1>📅 Books list :</h1>
-      <a th:href="@{/books/add}">
-      <input type="submit" class="btn" value="➕ Add Book">
+      <h1>👨‍💼 Editors list :</h1>
+      <a th:href="@{/editors/add}">
+      <input type="submit" value="➕ Add Editors">
       </a>
       <table border="1">
          <thead>
             <tr>
                <th>ID</th>
-               <th>Title</th>
+               <th>Editors</th>
                <th colspan="3">Actions</th>
             </tr>
          </thead>
          <tbody>
-            <tr th:each="book :  ${books}">
-               <td th:text="${book.id}"></td>
-               <td th:text="${book.title}"></td>
+            <tr th:each="editor : ${messenger}">
+               <td th:text="${editor.id}"></td>
+               <td th:text="${editor.name}"></td>
                <!-- Lien pour afficher les détails du livre -->
-               <td><a th:href="@{/books/{id}(id=${book.id})}">📅</a></td>
+               <td><a th:href="@{/editors/{id}(id=${editor.id})}">📅</a></td>
                <!-- Lien pour modifier le livre -->
-               <td><a th:href="@{/books/edit/{id}(id=${book.id})}">✏️</a></td>
+               <td><a th:href="@{/editors/edit/{id}(id=${editor.id})}">✏️</a></td>
                <!-- Lien pour supprimer le livre -->
-               <td><a th:href="@{/books/delete/{id}(id=${book.id})}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce livre ?');">🗑️</a></td>
+               <td><a th:href="@{/books/delete/{id}(id=${editor.id})}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce editor ?');">🗑️</a></td>
             </tr>
          </tbody>
       </table>
